@@ -1,4 +1,4 @@
-# StayGo 🏨
+# StayGo 
 
 A React web application for discovering hotels and exploring destinations in Jordan.
 
