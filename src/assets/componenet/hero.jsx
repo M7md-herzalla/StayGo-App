@@ -1,11 +1,13 @@
 import { useState,useEffect } from "react";
-
+import { useContext } from "react";
+import  { LanguageContext } from "../languageProvider";
 import hotels from "./hotels.js";
 
 const heroHotels = hotels.filter((hotel) =>
   [1, 2, 3, 4].includes(hotel.id)
 );
 function Hero({ onBook }){
+const { texts } = useContext(LanguageContext);
 
 const [currentHotel,setCurrentHotel]=useState(0);
 const nextHotel = () => {
@@ -28,38 +30,39 @@ useEffect(()=>{
   },4000);
   return()=>clearTimeout(timer);
 },[currentHotel])
+const heroTexts = texts.hero;
 const hotel = heroHotels[currentHotel];
-
+  const hotelTexts = heroTexts.hotels[hotel.id];
 const lowestPrice = hotel.rooms  ? Math.min(...hotel.rooms.map((room) => room.price)): hotel.price;
     return(
     <><div className="hero-section">
         <div className="hero-img">
-        <img alt={hotel.name}  src={hotel.image} className="hero-main-image"  key={hotel.id}></img>
+        <img alt={hotelTexts.name}  src={hotel.image} className="hero-main-image"  key={hotel.id}></img>
           
-          <div className="button-control">
-            <button className="prevBtn" onClick={prevHotel}>◀</button>
-            <button className="nextBtn" onClick={nextHotel}>▶</button>
+          <div className="button-control" dir="ltr">
+            <button className="prevBtn"   onClick={prevHotel} >◀</button>
+            <button className="nextBtn"  onClick={nextHotel} >▶</button>
         </div>
         </div>
         <div className="hero-text" key={hotel.id}>
-        <h2>{hotel.name}</h2>
+        <h2>{hotelTexts.name}</h2>
           <p className="hotel-location">
-          📍 {hotel.location}
+          📍 {hotelTexts.location}
         </p>
          <p className="hotel-rating">
           ⭐ {hotel.rating}
         </p>
 
         <p className="hero-description">
-          {hotel.description}
+          {hotelTexts.description}
         </p>
 
         <p className="hero-price">
-          From <strong>{lowestPrice} JD</strong> / night
+          {hotelTexts.from}{" "} <strong>{lowestPrice} {hotelTexts.currency}{" "}</strong>  {heroTexts.perNight}
         </p>
 
         <button className="book-btn" onClick={() => onBook(hotel)}>
-          Book Now
+       {heroTexts.bookNow}
         </button>
         </div>
 

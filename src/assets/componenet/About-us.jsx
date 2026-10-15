@@ -1,16 +1,17 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import aboutCards from "./aboutUsCards";
+import { LanguageContext } from "../languageProvider";
 function About(){
 const[activeCard,setCativeCard]=useState(null);
-
+const {texts}=useContext(LanguageContext)
 
     return(
         <>
             <section className="about-hero">
                 <div className="about-intro">
-                    <p>DISCOVER OUR STORY</p>
-                    <h1>More Than A Place To Stay.</h1>
-                    <span> Discover Jordan through stays, stories and unforgettable destinations.</span>
+                    <p>{texts.aboutPage.eyebrow}</p>
+                    <h1>{texts.aboutPage.title}</h1>
+                    <span> {texts.aboutPage.description}</span>
                 </div>
                 <div className="about-grid">
                     {aboutCards.map((card)=>(
@@ -24,16 +25,16 @@ const[activeCard,setCativeCard]=useState(null);
                          <div className="about-card-front">
                         <img src={card.image} alt={card.title}></img>
                         <div className="about-card-overlay">
-                        <h2>{card.title}</h2>
-                        <span>Discover →</span>
+                        <h2>{texts.aboutPage.cards[card.id].title}</h2>
+                        <span>{texts.aboutPage.discover} →</span>
                         
                         </div>
                         </div>
                         <div className="about-card-back">
                           < div className="about-card-back-text">
-                          <h2>{card.title}</h2>
-                          <p>{card.text}</p>
-                          <span><b>Click to return</b></span>
+                          <h2>{texts.aboutPage.cards[card.id].title}</h2>
+                          <p>{texts.aboutPage.cards[card.id].text}</p>
+                          <span><b>{texts.aboutPage.returnToFront}</b></span>
                           </div>
 
                         </div>    

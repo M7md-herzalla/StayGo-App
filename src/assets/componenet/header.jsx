@@ -1,7 +1,9 @@
 import { useState,useEffect } from "react";
 import { Link } from "react-router-dom";
-
+import  { LanguageContext } from "../languageProvider";
+import { useContext } from "react";
 function Header(){
+  const {language,toggleLanguage,texts}=useContext(LanguageContext);
   const[scrolled,setScrolled]=useState(false);
   useEffect(()=>{
     const handelScroll=()=>{
@@ -24,17 +26,21 @@ function Header(){
     >
           
 <div className="header-content">
-      <h1 ><Link className="header-logo" to="/">StayGo</Link></h1>
+       <div className="header-logo">
+<h1 ><Link className="logo" to="/">StayGo</Link></h1>
+      <button type="button" className="translateBtn" onClick={()=>toggleLanguage()}>{language === "en" ? "العربية" : "English"}</button>
+      
+       </div>
         <nav >
         <ul className="header-list">        
         <li>
-           <Link to="/">Home</Link>
+           <Link to="/">{texts.home}</Link>
         </li>
         <li>
-           <Link to="/Search">Search</Link>
+           <Link to="/Search">{texts.search}</Link>
         </li>
         <li>
-            <Link to="/About">About</Link>
+            <Link to="/About">{texts.about}</Link>
         </li>
         </ul>
         </nav>

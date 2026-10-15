@@ -1,30 +1,37 @@
-function WhyChooseUs() {
+import { useContext } from "react";
+import  { LanguageContext } from "../languageProvider";
+function WhyChooseUs() 
+
+{
+    const {texts}=useContext(LanguageContext);
+
+  
   return (
     <section className="why-section">
 
-      <h1>Why Choose Us</h1>
+      <h1>{texts.why.whyTitle}</h1>
 
       <div className="why-cards">
 
         <div className="why-card">
             
-          <h3> 💸 Best Prices</h3>
+          <h3> 💸 {texts.why.pricesTitle}</h3>
           <p>
-            Find great stays at competitive prices.
+            {texts.why.pricesDescription}
           </p>
         </div>
 
         <div className="why-card">
-          <h3> ✅ Verified Hotels</h3>
+          <h3> ✅ {texts.why.hotelsTitle}</h3>
           <p>
-            Discover trusted hotels across Jordan.
-          </p>
+                {texts.why.hotelsDescription}       
+        </p>
         </div>
 
         <div className="why-card">
-          <h3> 😃 Easy Booking</h3>
+          <h3> 😃 {texts.why.bookingTitle}</h3>
           <p>
-            Book your stay quickly and easily.
+            {texts.why.bookingDescription}
           </p>
         </div>
 

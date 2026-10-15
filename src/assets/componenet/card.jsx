@@ -1,7 +1,9 @@
-import { useRef, useState } from "react";
+import { useRef, useState,useContext } from "react";
 import hotels from "./hotels.js";
+import { LanguageContext } from "../languageProvider.jsx";
 function Card({setSelectedHotel} ){
 
+  const {texts}=useContext(LanguageContext);
   const sliderRef=useRef(null);
   const isDraging=useRef(false);
   const startX=useRef(0);
@@ -75,23 +77,23 @@ function Card({setSelectedHotel} ){
 
  <section className="card-section">
 
-      <h2>Popular Stays</h2>
+      <h2>{texts.searchPage.title}</h2>
 
 
 <div className="search-tools">
-<input className="text-inp" type="text" placeholder="Search Hotels..." value={searchText} onChange={(event)=>{setSearchText(event.target.value)}}/>
+<input className="text-inp" type="text" placeholder={texts.searchPage.searchPlaceholder} value={searchText} onChange={(event)=>{setSearchText(event.target.value)}}/>
 
 <div className="sort-box">
-      <button className="sort-button" onClick={() => setOpenSort(!openSort)}>Sort By</button>
+      <button className="sort-button" onClick={() => setOpenSort(!openSort)}>{texts.searchPage.sortBy}</button>
       <div className="sort-menu">
       
       {openSort &&   
       (<><button 
         onClick={() => setSortOption("low-high")}>
-          Price: Low → High</button><button onClick={() => setSortOption("high-low")}>
-          Price: High → Low</button><button onClick={() => setSortOption("rating-high-low")}>
-          Rating: High → Low</button><button onClick={() => setSortOption("rating-low-high")}>
-          Rating: Low → High</button></>
+          {texts.searchPage.priceLowHigh}</button><button onClick={() => setSortOption("high-low")}>
+         {texts.searchPage.priceHighLow}</button><button onClick={() => setSortOption("rating-high-low")}>
+         {texts.searchPage.ratingHighLow}</button><button onClick={() => setSortOption("rating-low-high")}>
+          {texts.searchPage.ratingLowHigh}</button></>
       )}
       </div>
       
@@ -99,7 +101,7 @@ function Card({setSelectedHotel} ){
 
 </div>
 
- <div className="card-wrapper">{!draggedOnce && <div className="drag-hint">Drag</div>}
+ <div className="card-wrapper">{!draggedOnce && <div className="drag-hint">{texts.searchPage.drag}</div>}
       <div className="card"  ref={sliderRef} onPointerDown={handlePointerDown}  onPointerLeave={handlePointerLeave} onPointerMove={handelPointerMove} onPointerUp={handelPointerUp}>
 
 { 
@@ -116,14 +118,14 @@ srotedHotels.map((hotel) => {const lowestPrice =getLowestPrice(hotel);
             />
 
 
-            <h3 draggable="false">{hotel.name}</h3>
+            <h3 draggable="false">{texts.hotels[hotel.id].name}</h3>
 
             <p draggable="false">
-             From {lowestPrice} JD / night
+             {texts.hero.from}{" "} {lowestPrice} {texts.hero.currency}{" "}{texts.hero.perNight}
             </p>
 
             <button onClick={()=>setSelectedHotel(hotel) } >
-              See More
+              {texts.searchPage.seeMore}
             </button>
 
           </div>
